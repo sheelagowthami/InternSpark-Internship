@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #000000, #1a1a2e);
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    text-align: center;
+    color: cyan;
+}
+
+.input-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    background: magenta;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff33ff;
+}
+
+li {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+li:hover {
+    transform: translateY(-3px);
+}
+
+.task-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.countdown {
+    font-size: 14px;
+    color: #00ffff;
+}
+
+.high { border-left: 5px solid red; }
+.medium { border-left: 5px solid yellow; }
+.low { border-left: 5px solid green; }
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.delete-btn {
+    background: red;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
