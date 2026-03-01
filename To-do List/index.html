@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart To-Do Pro</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Smart To-Do Pro</h1>
+
+    <div class="input-section">
+        <input type="text" id="taskInput" placeholder="Task name">
+        <input type="date" id="dateInput">
+        <input type="time" id="timeInput">
+
+        <select id="priorityInput">
+            <option value="High">High 🔴</option>
+            <option value="Medium">Medium 🟡</option>
+            <option value="Low">Low 🟢</option>
+        </select>
+
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <ul id="taskList"></ul>
+</div>
+
+<audio id="alarmSound">
+    <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
