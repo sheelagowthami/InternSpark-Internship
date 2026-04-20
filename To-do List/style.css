@@ -4,14 +4,14 @@ body {
     color: white;
     display: flex;
     justify-content: center;
-    padding: 40px;
+    padding: 20px;
 }
 
 .container {
     width: 100%;
     max-width: 700px;
     background: rgba(255,255,255,0.05);
-    padding: 30px;
+    padding: 25px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
 }
@@ -28,6 +28,18 @@ h1 {
     margin-bottom: 20px;
 }
 
+.input-section div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+label {
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: 3px;
+}
+
 input, select, button {
     padding: 10px;
     border-radius: 8px;
@@ -38,10 +50,17 @@ button {
     background: magenta;
     color: white;
     cursor: pointer;
+    font-weight: bold;
 }
 
 button:hover {
     background: #ff33ff;
+}
+
+.empty {
+    text-align: center;
+    color: #aaa;
+    margin-top: 20px;
 }
 
 li {
@@ -52,11 +71,6 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: 0.3s;
-}
-
-li:hover {
-    transform: translateY(-3px);
 }
 
 .task-details {
