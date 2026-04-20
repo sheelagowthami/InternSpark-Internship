@@ -3,16 +3,10 @@ const alarmSound = document.getElementById("alarmSound");
 
 window.onload = function () {
     loadTasks();
-    requestNotificationPermission();
     setInterval(updateCountdowns, 1000);
 };
 
-function requestNotificationPermission() {
-    if ("Notification" in window) {
-        Notification.requestPermission();
-    }
-}
-
+// ADD TASK
 function addTask() {
     const name = taskInput.value;
     const date = dateInput.value;
@@ -36,9 +30,13 @@ function addTask() {
 
     saveTask(task);
     displayTask(task);
+
+    alert("Task added successfully!");
+
     taskInput.value = "";
 }
 
+// DISPLAY TASK
 function displayTask(task) {
     const li = document.createElement("li");
     li.classList.add(task.priority.toLowerCase());
@@ -62,9 +60,12 @@ function displayTask(task) {
     const deleteBtn = document.createElement("button");
     deleteBtn.innerText = "Delete";
     deleteBtn.className = "delete-btn";
+
     deleteBtn.onclick = () => {
-        removeTask(task.id);
-        li.remove();
+        if (confirm("Are you sure you want to delete this task?")) {
+            removeTask(task.id);
+            li.remove();
+        }
     };
 
     li.appendChild(details);
@@ -72,29 +73,39 @@ function displayTask(task) {
     taskList.appendChild(li);
 }
 
+// SAVE TASK
 function saveTask(task) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks.push(task);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// LOAD TASKS
 function loadTasks() {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(displayTask);
+
+    if (tasks.length === 0) {
+        taskList.innerHTML = "<p class='empty'>No tasks yet. Add your first task!</p>";
+    } else {
+        tasks.forEach(displayTask);
+    }
 }
 
+// UPDATE TASK
 function updateTask(updatedTask) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks = tasks.map(t => t.id === updatedTask.id ? updatedTask : t);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// REMOVE TASK
 function removeTask(id) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks = tasks.filter(t => t.id !== id);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// COUNTDOWN + REMINDER
 function updateCountdowns() {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     const now = new Date();
@@ -103,38 +114,21 @@ function updateCountdowns() {
         const target = new Date(`${task.date}T${task.time}`);
         const diff = target - now;
 
-        const countdownEl = document.getElementById(`countdown-${task.id}`);
+        const el = document.getElementById(`countdown-${task.id}`);
 
-        if (diff > 0) {
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+        if (diff > 0 && el) {
+            const h = Math.floor(diff / (1000 * 60 * 60));
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
 
-            if (countdownEl)
-                countdownEl.innerText = `⏳ ${hours}h ${minutes}m ${seconds}s remaining`;
+            el.innerText = `⏳ ${h}h ${m}m ${s}s`;
         }
 
         if (diff <= 0 && !task.reminded) {
-            showNotification(task.name);
+            alert("Reminder: " + task.name);
             alarmSound.play();
             task.reminded = true;
             updateTask(task);
         }
     });
-}
-
-function showNotification(taskName) {
-    // Play sound safely
-    alarmSound.currentTime = 0;
-    alarmSound.play().catch(() => {
-        console.log("Sound blocked until user interaction.");
-    });
-
-    if (Notification.permission === "granted") {
-        new Notification("⏰ Reminder!", {
-            body: taskName
-        });
-    } else {
-        alert("⏰ Reminder: " + taskName);
-    }
 }
