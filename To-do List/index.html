@@ -12,17 +12,31 @@
     <h1>Smart To-Do Pro</h1>
 
     <div class="input-section">
-        <input type="text" id="taskInput" placeholder="Task name">
-        <input type="date" id="dateInput">
-        <input type="time" id="timeInput">
+    <div>
+        <label>Task Name</label>
+        <input type="text" id="taskInput" placeholder="Enter task">
+    </div>
 
+    <div>
+        <label>Date</label>
+        <input type="date" id="dateInput">
+    </div>
+
+    <div>
+        <label>Time</label>
+        <input type="time" id="timeInput">
+    </div>
+
+    <div>
+        <label>Priority</label>
         <select id="priorityInput">
             <option value="High">High 🔴</option>
             <option value="Medium">Medium 🟡</option>
             <option value="Low">Low 🟢</option>
         </select>
+    </div>
 
-        <button onclick="addTask()">Add Task</button>
+    <button onclick="addTask()">Add Task</button>
     </div>
 
     <ul id="taskList"></ul>
